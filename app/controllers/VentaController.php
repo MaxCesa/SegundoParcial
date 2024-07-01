@@ -117,4 +117,21 @@ class VentaController extends Venta
             return Utilities::ParametrosInvalidos($response);
         }
     }
+
+    public static function DescargarCSV($request, $response, $args)
+    {
+        $file = Venta::GuardarProductosCSV();
+        $filename = basename("app\csv\ventas.csv");
+        header('Content-Description: File Transfer');
+        header('Content-Type: text/csv');
+        header('Content-Disposition: attachment; filename=' . $filename);
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        header('Content-Length: ' . filesize("app\csv\ventas.csv"));
+
+
+        readfile($file);
+        return $response->withHeader();
+    }
 }

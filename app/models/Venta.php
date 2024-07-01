@@ -117,4 +117,31 @@ class Venta
         $consulta->execute();
         return $consulta->rowCount();
     }
+
+    public static function obtenerTodos()
+    {
+        $objAccesoDatos = AccesoDatos::obtenerInstancia();
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT * FROM `ventas`");
+        $consulta->execute();
+        return $consulta->fetchAll(PDO::FETCH_ASSOC);
+
+    }
+
+    public static function GuardarProductosCSV()
+    {
+        $datos = Venta::obtenerTodos();
+
+        $file = fopen("./csv/ventas.csv", 'w');
+
+        $propiedades = array_keys($datos[0]);
+        fputcsv($file, $propiedades);
+        foreach ($datos as $producto) {
+            $row = [];
+            foreach ($propiedades as $propiedad) {
+                $row[] = $producto->$propiedad;
+            }
+            fputcsv($file, $row);
+        }
+        return $file;
+    }
 }

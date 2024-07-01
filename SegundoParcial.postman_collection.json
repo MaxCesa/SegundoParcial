@@ -1,0 +1,306 @@
+{
+	"info": {
+		"_postman_id": "d8ba5458-a034-4031-8790-c9d8ede73064",
+		"name": "SegundoParcial",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34150658"
+	},
+	"item": [
+		{
+			"name": "Alta Producto",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "nombre",
+							"value": "Adidas",
+							"type": "text"
+						},
+						{
+							"key": "precio",
+							"value": "10000",
+							"type": "text"
+						},
+						{
+							"key": "tipo",
+							"value": "Camiseta",
+							"type": "text"
+						},
+						{
+							"key": "talla",
+							"value": "L",
+							"type": "text"
+						},
+						{
+							"key": "color",
+							"value": "Negro",
+							"type": "text"
+						},
+						{
+							"key": "stock",
+							"value": "25",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:666/app/tienda/alta",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"app",
+						"tienda",
+						"alta"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AltaVenta",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "nombre",
+							"value": "Adidas",
+							"type": "text"
+						},
+						{
+							"key": "precio",
+							"value": "10000",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "tipo",
+							"value": "Camiseta",
+							"type": "text"
+						},
+						{
+							"key": "talla",
+							"value": "L",
+							"type": "text"
+						},
+						{
+							"key": "color",
+							"value": "Negro",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "stock",
+							"value": "10",
+							"type": "text"
+						},
+						{
+							"key": "foto",
+							"type": "file",
+							"src": "/C:/Users/maxic/OneDrive/Escritorio/2fbb5a1b3aea7562a772575c79177a62_d57585a6e7db1d329386df1556de41ca.webp"
+						},
+						{
+							"key": "email",
+							"value": "joaco@gmail.com",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:666/app/ventas/alta",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"app",
+						"ventas",
+						"alta"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consultar Producto",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "nombre",
+							"value": "Adidas",
+							"type": "text"
+						},
+						{
+							"key": "precio",
+							"value": "10000",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "tipo",
+							"value": "Camiseta",
+							"type": "text"
+						},
+						{
+							"key": "talla",
+							"value": "L",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "color",
+							"value": "Negro",
+							"type": "text"
+						},
+						{
+							"key": "stock",
+							"value": "25",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:666/app/tienda/consultar",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"app",
+						"tienda",
+						"consultar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ventas Consultar Productos Vendidos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:666/app/ventas/consultar/productos/vendidos?fecha=2024-7-1",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"app",
+						"ventas",
+						"consultar",
+						"productos",
+						"vendidos"
+					],
+					"query": [
+						{
+							"key": "fecha",
+							"value": "2024-7-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ventas Consultar Productos Entre Valores",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:666/app/ventas/consultar/productos/entreValores?valor1=500&valor2=20000",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"app",
+						"ventas",
+						"consultar",
+						"productos",
+						"entreValores"
+					],
+					"query": [
+						{
+							"key": "valor1",
+							"value": "500"
+						},
+						{
+							"key": "valor2",
+							"value": "20000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Descargar CSV",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:666/app/ventas/consultar/productos/entreValores?valor1=500&valor2=20000",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"app",
+						"ventas",
+						"consultar",
+						"productos",
+						"entreValores"
+					],
+					"query": [
+						{
+							"key": "valor1",
+							"value": "500"
+						},
+						{
+							"key": "valor2",
+							"value": "20000"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"pm.globals.set(\"ahora\", (Math.trunc((new Date().getTime() / 1000))));\r",
+					"pm.globals.set(\"despues\", (Math.trunc((new Date().getTime() / 1000) + 3600)));\r",
+					"pm.globals.set(\"antes\", (Math.trunc((new Date().getTime() / 1000)) - 10));"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

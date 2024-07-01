@@ -50,6 +50,7 @@ $app->group('/ventas', function (RouteCollectorProxy $group) {
 		});
 	});
 	$group->put('/modificar', \VentaController::class . ':Modificar')->add(new ConfirmarPerfil(["Admin"]));
+	$group->get('/descargar', \VentaController::class . ':DescargarCSV')->add(new ConfirmarPerfil(["Admin"]));
 });
 
 $app->post('/registro', \UsuarioController::class . ':CargarUno');
