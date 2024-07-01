@@ -1,6 +1,6 @@
 <?php
 
-require_once "../models/Venta.php";
+require_once "./models/Venta.php";
 require_once "Utility.php";
 
 class VentaController extends Venta

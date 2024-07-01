@@ -1,6 +1,6 @@
 <?php
 
-require_once "../models/Tienda.php";
+require_once "./models/Tienda.php";
 
 class TiendaController extends Tienda
 {
@@ -59,11 +59,11 @@ class TiendaController extends Tienda
     public static function ProductosEntreValores($request, $response, $args)
     {
         if (
-            isset($$_GET['valor1']) && $$_GET['valor1'] != "" &&
-            isset($$_GET['valor2']) && $$_GET['valor2'] != ""
+            isset($_GET['valor1']) && $_GET['valor1'] != "" &&
+            isset($_GET['valor2']) && $_GET['valor2'] != ""
         ) {
-            $listado = Tienda::ConsultarProductosEntreValores($$_GET['valor1'], $$_GET['valor2']);
-            $payload = json_encode(array("mensaje" => "Ventas entre {$$_GET['valor1']} y {$$_GET['valor2']}.", "Payload" => $listado));
+            $listado = Tienda::ConsultarProductosEntreValores($_GET['valor1'], $_GET['valor2']);
+            $payload = json_encode(array("mensaje" => "Ventas entre {$_GET['valor1']} y {$_GET['valor2']}.", "Payload" => $listado));
             $response->getBody()->write($payload);
             return $response
                 ->withHeader('Content-Type', 'application/json');

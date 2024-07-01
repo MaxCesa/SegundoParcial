@@ -1,6 +1,6 @@
 <?php
 require_once "Venta.php";
-require_once "../db/AccesoDatos.php";
+require_once "./db/AccesoDatos.php";
 class Tienda
 {
 
@@ -19,7 +19,7 @@ class Tienda
             $consulta->bindValue(":nombre", $nombre);
             $consulta->execute();
         } else {
-            $consulta = $objAccesoDatos->prepararConsulta("INSERT into tienda (nombre,precio,tipo,talle,color,stock) VALUES (:nombre,:precio,:tipo,:talle,:color,:stock)");
+            $consulta = $objAccesoDatos->prepararConsulta("INSERT into tienda (nombre,precio,tipo,talla,color,stock) VALUES (:nombre,:precio,:tipo,:talla,:color,:stock)");
             $consulta->bindValue(":tipo", $tipo);
             $consulta->bindValue(":nombre", $nombre);
             $consulta->bindValue(":talla", $talla);
@@ -36,14 +36,13 @@ class Tienda
         $retorno = array();
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
         if ($color == 1) {
-            $consulta = $objAccesoDatos->prepararConsulta("SELECT id from tienda where nombre = :nombre AND tipo = :tipo");
+            $consulta = $objAccesoDatos->prepararConsulta("SELECT id, stock from tienda where nombre = :nombre AND tipo = :tipo");
         } else {
-            $consulta = $objAccesoDatos->prepararConsulta("SELECT id from tienda where nombre = :nombre AND tipo = :tipo AND color = :color");
+            $consulta = $objAccesoDatos->prepararConsulta("SELECT id, stock from tienda where nombre = :nombre AND tipo = :tipo AND color = :color");
             $consulta->bindValue(":color", $color);
         }
         $consulta->bindValue(":tipo", $tipo);
         $consulta->bindValue(":nombre", $nombre);
-        $consulta->bindValue(":color", $color);
         $consulta->execute();
         if ($consulta->rowCount() == 0) {
             $consulta = $objAccesoDatos->prepararConsulta("SELECT

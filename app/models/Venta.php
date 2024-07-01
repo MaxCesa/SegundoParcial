@@ -1,6 +1,6 @@
 <?php
 
-require_once "../db/AccesoDatos.php";
+require_once "./db/AccesoDatos.php";
 
 class Venta
 {
@@ -8,7 +8,7 @@ class Venta
     {
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
         $consultaTienda = Tienda::ConsultarTienda($nombre, $tipo);
-        if ($consultaTienda['Mensaje'] == "Existe" && $consultaTienda['Stock'] >= $stock) {
+        if ($consultaTienda['Mensaje'] == "Existe." && $consultaTienda['Stock'] >= $stock) {
             $consulta = $objAccesoDatos->prepararConsulta("INSERT INTO ventas (numero_de_pedido,email,nombre,tipo,talla,stock)
                                                             VALUES (:numero,:email,:nombre,:tipo,:talla,:stock);");
             $consulta->bindValue(":numero", self::NuevoNumeroDePedido());
@@ -18,9 +18,8 @@ class Venta
             $consulta->bindValue(":talla", $talla);
             $consulta->bindValue(":stock", $stock);
             $consulta->execute();
-
             $consulta = $objAccesoDatos->prepararConsulta("UPDATE tienda
-                                                            SET stock -= :stock
+                                                            SET stock = (stock - :stock)
                                                             WHERE id = :id;");
             $consulta->bindValue(":stock", $stock);
             $consulta->bindValue(":id", $consultaTienda['id']);
@@ -50,8 +49,11 @@ class Venta
         return substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 5)), 0, 5);
     }
 
-    public static function ConsultarProductosVendidos($dia = date("Y-m-d", strtotime("-1 days")))
+    public static function ConsultarProductosVendidos($dia = 1)
     {
+        if ($dia == 1) {
+            $dia = date("Y-m-d", strtotime("-1 days"));
+        }
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
         $consulta = $objAccesoDatos->prepararConsulta("SELECT SUM(stock) as total from ventas
                                                         WHERE DATE(fecha) = :dia;");
