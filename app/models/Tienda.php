@@ -81,7 +81,7 @@ class Tienda
     public static function GetProductoMasVendido()
     {
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
-        $consulta = $objAccesoDatos->prepararConsulta("SELECT nombre, SUM(stock) AS total_vendida
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT nombre, tipo, talla, SUM(stock) AS total_vendida
                                                         FROM ventas
                                                         GROUP BY nombre, tipo, talla
                                                         ORDER BY total_vendida DESC

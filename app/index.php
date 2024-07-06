@@ -10,6 +10,8 @@ require __DIR__ . '/../vendor/autoload.php';
 require_once './controllers/TiendaController.php';
 require_once './controllers/VentaController.php';
 require_once './models/ConfirmarPerfil.php';
+require_once './controllers/UsuarioController.php';
+require_once './controllers/LoggerController.php';
 
 
 session_start();

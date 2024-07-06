@@ -1,6 +1,5 @@
 <?php
 require_once './models/Usuario.php';
-require_once './interfaces/IApiUsable.php';
 class UsuarioController
 {
     public function CargarUno($request, $response, $args)
@@ -11,7 +10,7 @@ class UsuarioController
             isset($parametros['usuario']) && $parametros['usuario'] != "" &&
             isset($parametros['clave']) && $parametros['clave'] != "" &&
             isset($parametros['email']) && $parametros['email'] != "" &&
-            isset($_FILES['foto']) && $parametros['foto'] != ""
+            isset($_FILES['foto']) && $_FILES['foto'] != ""
         ) {
             Usuario::RegistrarUsuario($parametros['usuario'], $parametros['clave'], $parametros['perfil'], $parametros['email'], $_FILES['foto']);
             $payload = json_encode(array("mensaje" => "Usuario creado con exito"));
