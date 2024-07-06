@@ -1,7 +1,6 @@
 <?php
 
 require_once "./models/Venta.php";
-require_once "Utility.php";
 
 class VentaController extends Venta
 {
@@ -12,22 +11,12 @@ class VentaController extends Venta
     {
         $parametros = $request->getParsedBody();
 
-        if (
-            isset($parametros['nombre']) && $parametros['nombre'] != "" &&
-            isset($parametros['email']) && $parametros['email'] != "" &&
-            ($parametros['tipo'] == "Camiseta" || $parametros['tipo'] == "Pantalon") &&
-            ($parametros['talla'] == "S" || $parametros['talla'] == "M" || $parametros['talla'] == "L") &&
-            isset($parametros['stock']) && $parametros['stock'] != "" &&
-            isset($_FILES['foto'])
-        ) {
-            $retorno = Venta::CargarVenta($parametros['email'], $parametros['nombre'], $parametros['tipo'], $parametros['talla'], $parametros['stock'], $_FILES['foto']);
-            $payload = json_encode(array("mensaje" => $retorno));
-            $response->getBody()->write($payload);
-            return $response
-                ->withHeader('Content-Type', 'application/json');
-        } else {
-            return Utilities::ParametrosInvalidos($response);
-        }
+        $retorno = Venta::CargarVenta($parametros['email'], $parametros['nombre'], $parametros['tipo'], $parametros['talla'], $parametros['stock'], $_FILES['foto']);
+        $payload = json_encode(array("mensaje" => $retorno));
+        $response->getBody()->write($payload);
+        return $response
+            ->withHeader('Content-Type', 'application/json');
+
     }
 
     public static function ConsultarFecha($request, $response, $args)
@@ -49,28 +38,24 @@ class VentaController extends Venta
 
     public static function ConsultarPorTipo($request, $response, $args)
     {
-        if ($_GET['tipo'] == "Camiseta" || $_GET['tipo'] == "Pantalon") {
-            $listado = Venta::ConsultarVentasPorTipo($_GET['tipo']);
-            $payload = json_encode(array("mensaje" => "Ventas de tipo {$_GET['tipo']}.", "Payload" => $listado));
-            $response->getBody()->write($payload);
-            return $response
-                ->withHeader('Content-Type', 'application/json');
-        } else {
-            return Utilities::ParametrosInvalidos($response);
-        }
+
+        $listado = Venta::ConsultarVentasPorTipo($_GET['tipo']);
+        $payload = json_encode(array("mensaje" => "Ventas de tipo {$_GET['tipo']}.", "Payload" => $listado));
+        $response->getBody()->write($payload);
+        return $response
+            ->withHeader('Content-Type', 'application/json');
+
     }
 
     public static function ConsultarPorUsuario($request, $response, $args)
     {
-        if (isset($_GET['email']) && $_GET['email'] != "") {
-            $listado = Venta::ConsultarVentasPorUsuario($_GET['email']);
-            $payload = json_encode(array("mensaje" => "Ventas de usuario {$_GET['tipo']}.", "Payload" => $listado));
-            $response->getBody()->write($payload);
-            return $response
-                ->withHeader('Content-Type', 'application/json');
-        } else {
-            return Utilities::ParametrosInvalidos($response);
-        }
+
+        $listado = Venta::ConsultarVentasPorUsuario($_GET['email']);
+        $payload = json_encode(array("mensaje" => "Ventas de usuario {$_GET['tipo']}.", "Payload" => $listado));
+        $response->getBody()->write($payload);
+        return $response
+            ->withHeader('Content-Type', 'application/json');
+
     }
 
     public static function ConsultarIngresos($request, $response, $args)
@@ -93,29 +78,20 @@ class VentaController extends Venta
     public static function Modificar($request, $response, $args)
     {
         $parametros = $request->getParsedBody();
-        if (
-            isset($parametros['nombre']) && $parametros['nombre'] != "" &&
-            isset($parametros['email']) && $parametros['email'] != "" &&
-            ($parametros['tipo'] == "Camiseta" || $parametros['tipo'] == "Pantalon") &&
-            ($parametros['talla'] == "S" || $parametros['talla'] == "M" || $parametros['talla'] == "L") &&
-            isset($parametros['stock']) && $parametros['stock'] != "" &&
-            isset($parametros['nro_pedido']) && $parametros['nro_pedido'] != ""
-        ) {
-            $resultado = Venta::ModificarVenta($parametros['nro_pedido'], $parametros['email'], $parametros['nombre'], $parametros['tipo'], $parametros['talla'], $parametros['stock']);
-            if ($resultado > 0) {
-                $payload = json_encode(array("mensaje" => "Se actualizo el registro de venta."));
-                $response->getBody()->write($payload);
-                return $response
-                    ->withHeader('Content-Type', 'application/json');
-            } else {
-                $payload = json_encode(array("mensaje" => "No se encontro el numero de pedido."));
-                $response->getBody()->write($payload);
-                return $response
-                    ->withHeader('Content-Type', 'application/json');
-            }
+
+        $resultado = Venta::ModificarVenta($parametros['nro_pedido'], $parametros['email'], $parametros['nombre'], $parametros['tipo'], $parametros['talla'], $parametros['stock']);
+        if ($resultado > 0) {
+            $payload = json_encode(array("mensaje" => "Se actualizo el registro de venta."));
+            $response->getBody()->write($payload);
+            return $response
+                ->withHeader('Content-Type', 'application/json');
         } else {
-            return Utilities::ParametrosInvalidos($response);
+            $payload = json_encode(array("mensaje" => "No se encontro el numero de pedido."));
+            $response->getBody()->write($payload);
+            return $response
+                ->withHeader('Content-Type', 'application/json');
         }
+
     }
 
     public static function DescargarCSV($request, $response, $args)
